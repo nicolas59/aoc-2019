@@ -31,20 +31,26 @@ def compute_positions(wire):
     return visited_points
 
 def get_manhattan(p1, p2):
-    ret = 999999999
-    for key in p1.keys():
-        if p2.get(key) != None:
-            r = fabs(key.x) + fabs(key.y)
-            ret = r if r<ret else ret
-    return int(ret)
+    return min(map(lambda key: fabs(key.x) + fabs(key.y),
+                   set(p1.keys()) & set(p2.keys())))
+  #  ret = 999999999
+  #  for key in p1.keys():
+  #      if p2.get(key) != None:
+  #          r = fabs(key.x) + fabs(key.y)
+  #          ret = r if r<ret else ret
+  #  return int(ret)
 
+# & : intercept
 def get_min_step(p1, p2):
-    min_step = 99999999999
-    for key in p1.keys():
-        if p2.get(key) != None:
-            r = p1[key] + p2[key]
-            min_step = r if r < min_step  else min_step
-    return int(min_step)
+    return min(map(lambda key: p1[key] + p2[key],
+                    set(p1.keys()) & set(p2.keys())))
+    print(_min)
+  #  min_step = 99999999999
+  #  for key in p1.keys():
+  #      if p2.get(key) != None:
+  #          r = p1[key] + p2[key]
+  #          min_step = r if r < min_step  else min_step
+  #  return int(min_step)
 
 assert get_manhattan(compute_positions(["R8","U5","L5","D3"]), compute_positions(["U7","R6","D4","L4"])) == 6
 assert get_manhattan(compute_positions(["R75","D30","R83","U83","L12","D49","R71","U7","L72"]),compute_positions(["U62","R66","U55","R34", "D71","R55","D58","R83"])) == 159
